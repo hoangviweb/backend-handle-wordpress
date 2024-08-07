@@ -13,9 +13,9 @@ add_filter('wpcf7_validate_tel*', 'cf7_validate_vietnam_phone', 10, 2);
 
 function cf7_validate_vietnam_phone($result, $tag) {
     $name = $tag->name;
-    $has_value = isset($_POST[$name]) && '' !== $_POST[$name];
     $regex = '/(?:\+84|0084|0)[235789][0-9]{1,2}[0-9]{7}(?:[^\d]+|$)/iD';
-    if ($has_value && !preg_match($regex, $has_value, $match)) {
+    if (isset($_POST[$name]) && '' !== $_POST[$name] && !preg_match($regex, $_POST[$name], $match)) {
         $result->invalidate($name, wpcf7_get_message($name));
     }
+    return $result;
 }
