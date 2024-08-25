@@ -19,3 +19,14 @@ function cf7_validate_vietnam_phone($result, $tag) {
     }
     return $result;
 }
+/*
+ * Disable gutenberg
+ */
+function disable_gutenberg_editor( $is_enabled, $post_type ) {
+    if ( 'your_post_type' === $post_type ) {
+        return false;
+    }
+    return $is_enabled;
+}
+add_filter( 'use_block_editor_for_post_type', 'disable_gutenberg_editor', 10, 2 );
+add_filter('use_block_editor_for_post', '__return_false');
